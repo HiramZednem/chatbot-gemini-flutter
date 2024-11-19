@@ -15,6 +15,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ApiService apiService = ApiService();
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final FlutterTts flutterTts = FlutterTts();
   final stt.SpeechToText speechToText = stt.SpeechToText();
 
@@ -103,10 +104,11 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void sendMessage() async {
+    if(_controller.text.isEmpty) return;
+
     setState(() {
       isLoading = true;
     });
-    if (_controller.text.isEmpty) return;
 
     String userMessage = _controller.text;
     setState(() {
@@ -114,6 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
     });
 
     await saveMessages();
+    _scrollToBottom();
     _controller.clear();
 
     String context = messages
@@ -138,7 +141,17 @@ Respond concisely, with a maximum of 2 to 3 sentences.
     });
 
     await saveMessages();
+    _scrollToBottom();
     await speak(botResponse);
+  }
+
+  void _scrollToBottom() {
+    // Verifica si el controlador está adjunto antes de usarlo
+    if (_scrollController.hasClients) {
+      // Desplazarse hacia el final de la lista
+      _scrollController
+          .jumpTo(_scrollController.position.maxScrollExtent + 130);
+    }
   }
 
   @override
@@ -152,6 +165,7 @@ Respond concisely, with a maximum of 2 to 3 sentences.
         children: [
           Expanded(
             child: ListView.builder(
+              controller: _scrollController,
               itemCount: messages.length + (isLoading ? 1 : 0),
               itemBuilder: (context, index) {
                 if (index >= messages.length) {
