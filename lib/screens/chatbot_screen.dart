@@ -69,7 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> speak(String text) async {
-    await flutterTts.setLanguage("es-ES");
+    await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.speak(text);
   }
