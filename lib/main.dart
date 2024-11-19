@@ -50,18 +50,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 4,
-              blurRadius: 10,
-              offset: const Offset(0, -6),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
+      bottomNavigationBar: 
+        BottomNavigationBar(
           backgroundColor: Colors.white,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -74,10 +64,9 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.green,
+          selectedItemColor: Colors.orange,
           onTap: _onItemTapped,
         ),
-      ),
     );
   }
 }
