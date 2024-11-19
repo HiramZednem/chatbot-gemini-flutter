@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
   // Función para abrir enlaces
   void _launchURL(String url) async {
     Uri uri = Uri.parse(
-        "https://github.com/HiramZednem/HEYCAP-FLUTTER/tree/gemini-chat");
+        "https://github.com/HiramZednem/chatbot-gemini-flutter");
 
     await launchUrl(uri);
   }
