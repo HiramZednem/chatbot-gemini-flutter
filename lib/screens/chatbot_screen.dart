@@ -121,15 +121,13 @@ class _ChatScreenState extends State<ChatScreen> {
         .join('\n');
 
     String prompt = '''
-Eres un asistente especializado en responder preguntas de forma breve y precisa.
+You are an assistant specialized in answering questions briefly and accurately.
 
-Contexto de la conversación:
-$context
+Conversation context: $context
 
-Pregunta del usuario:
-$userMessage
+User's question: $userMessage
 
-Responde de manera breve, con un máximo de 2 o 3 oraciones.
+Respond concisely, with a maximum of 2 to 3 sentences.
 ''';
 
     String botResponse = await apiService.getResponse(prompt);
@@ -146,29 +144,9 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Chatbot YAMA',
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: Colors.white)),
-        actions: [
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: CircleAvatar(
-                child: Image.asset(
-                  'assets/logo.png',
-                  fit: BoxFit.contain,
-                ),
-              )),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: clearMessages,
-            tooltip: 'Eliminar conversación',
-          ),
-        ],
+        backgroundColor: Colors.orange,
+        title: const Text('Chat'),
       ),
       body: Column(
         children: [
@@ -182,10 +160,6 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                     children: [
                       const Padding(
                         padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.computer,
-                          color: Colors.blue,
-                        ),
                       ),
                       SizedBox(width: 8),
                       Flexible(
@@ -196,7 +170,7 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                           width: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation(Colors.blue),
+                            valueColor: AlwaysStoppedAnimation(Color.fromARGB(255, 157, 150, 128)),
                           ),
                         ),
                       )),
@@ -212,15 +186,6 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                       ? MainAxisAlignment.end
                       : MainAxisAlignment.start,
                   children: [
-                    if (!isUserMessage) ...[
-                      const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.computer,
-                          color: Colors.blue,
-                        ),
-                      )
-                    ],
                     const SizedBox(width: 8),
                     Flexible(
                       child: Container(
@@ -228,7 +193,7 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                             vertical: 5, horizontal: 10),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: isUserMessage ? Colors.green : Colors.blue,
+                          color: isUserMessage ? Colors.orange : const Color.fromARGB(255, 157, 150, 128),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
@@ -237,16 +202,6 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                         ),
                       ),
                     ),
-                    if (isUserMessage) ...[
-                      const SizedBox(width: 8),
-                      const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.green,
-                        ),
-                      ),
-                    ],
                   ],
                 );
               },
@@ -259,16 +214,16 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    cursorColor: Colors.blue,
+                    cursorColor: Colors.orange,
                     decoration: const InputDecoration(
-                      hintText: 'Escribe un mensaje o usa el micrófono...',
+                      hintText: 'Escribe un mensaje...',
                       hintStyle: TextStyle(fontWeight: FontWeight.w400),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                        color: Colors.blue,
+                        color: Colors.orange,
                         width: 1.5,
                       )),
                     ),
@@ -277,12 +232,12 @@ Responde de manera breve, con un máximo de 2 o 3 oraciones.
                 IconButton(
                   icon: Icon(
                     isListening ? Icons.mic : Icons.mic_none,
-                    color: Colors.blue,
+                    color: Colors.orange,
                   ),
                   onPressed: isListening ? stopListening : startListening,
                 ),
                 IconButton(
-                    icon: const Icon(Icons.send, color: Colors.blue),
+                    icon: const Icon(Icons.send, color: Colors.orange),
                     onPressed: isConnected ? sendMessage : null),
               ],
             ),

@@ -60,7 +60,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat),
-              label: 'Chatbot',
+              label: 'Chat',
             ),
           ],
           currentIndex: _selectedIndex,
