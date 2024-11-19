@@ -160,6 +160,12 @@ Respond concisely, with a maximum of 2 to 3 sentences.
       appBar: AppBar(
         backgroundColor: Colors.orange,
         title: const Text('Chat'),
+           actions: [
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: clearMessages,
+        ),
+      ],
       ),
       body: Column(
         children: [
